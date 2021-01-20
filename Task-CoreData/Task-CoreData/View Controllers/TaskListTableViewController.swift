@@ -9,6 +9,9 @@ import UIKit
 
 class TaskListTableViewController: UITableViewController {
 
+    @IBOutlet weak var hideCompletedButton: UIBarButtonItem!
+    var hideCompleted: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -18,7 +21,18 @@ class TaskListTableViewController: UITableViewController {
         TaskController.shared.fetchTasks()
         tableView.reloadData()
     }
-
+    
+    @IBAction func hideCompletedButtonTapped(_ sender: Any) {
+        hideCompleted.toggle()
+        
+        if hideCompleted {
+            hideCompletedButton.title = "Show Completed"
+        } else {
+            hideCompletedButton.title = "Hide Completed"
+        }
+        tableView.reloadData()
+    }
+    
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -31,6 +45,10 @@ class TaskListTableViewController: UITableViewController {
         let task = TaskController.shared.tasks[indexPath.row]
         cell.delegate = self
         cell.updateViews(task: task)
+        
+        if hideCompleted && task.isComplete {
+            cell.isHidden = true
+        }
 
         return cell
     }

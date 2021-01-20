@@ -19,28 +19,41 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" id="xMs-L2-pP1" customClass="TaskTableViewCell" customModule="Task_CoreData" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="31"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="59"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xMs-L2-pP1" id="GPb-VL-lMe">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="31"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="59"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="6F3-qu-dsr">
-                                            <rect key="frame" x="10.5" y="1" width="393" height="29"/>
+                                            <rect key="frame" x="10.5" y="1.5" width="393" height="56"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNZ-UX-z8P">
-                                                    <rect key="frame" x="0.0" y="0.0" width="345.5" height="29"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" axis="vertical" distribution="fillProportionally" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="nZG-Y1-Yc4">
+                                                    <rect key="frame" x="0.0" y="0.0" width="319" height="56"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNZ-UX-z8P">
+                                                            <rect key="frame" x="0.0" y="0.0" width="319" height="29.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vOb-E1-s3p">
+                                                            <rect key="frame" x="0.0" y="35.5" width="319" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="245" verticalHuggingPriority="247" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1gT-Tg-eb2">
-                                                    <rect key="frame" x="363.5" y="0.0" width="29.5" height="29"/>
+                                                    <rect key="frame" x="337" y="0.0" width="56" height="56"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="1gT-Tg-eb2" secondAttribute="height" multiplier="1:1" id="j7u-2y-MOC"/>
                                                     </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <state key="normal">
-                                                        <imageReference key="image" image="square" catalog="system" renderingMode="original"/>
+                                                        <imageReference key="image" image="square" catalog="system" symbolScale="large" renderingMode="original"/>
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="taskIsCompleteButtonTapped:" destination="xMs-L2-pP1" eventType="touchUpInside" id="I6r-RH-9On"/>
@@ -48,8 +61,8 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="sNZ-UX-z8P" firstAttribute="centerY" secondItem="6F3-qu-dsr" secondAttribute="centerY" id="A3n-u5-ZBj"/>
-                                                <constraint firstItem="sNZ-UX-z8P" firstAttribute="height" secondItem="6F3-qu-dsr" secondAttribute="height" id="Sz3-z6-yDf"/>
+                                                <constraint firstItem="nZG-Y1-Yc4" firstAttribute="height" secondItem="6F3-qu-dsr" secondAttribute="height" id="XI4-G8-XOL"/>
+                                                <constraint firstItem="nZG-Y1-Yc4" firstAttribute="centerY" secondItem="6F3-qu-dsr" secondAttribute="centerY" id="wqM-0p-12h"/>
                                             </constraints>
                                         </stackView>
                                     </subviews>
@@ -61,6 +74,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="taskDueDateLabel" destination="vOb-E1-s3p" id="xZb-Y4-HMY"/>
                                     <outlet property="taskIsCompleteButton" destination="1gT-Tg-eb2" id="6jT-R4-Kpt"/>
                                     <outlet property="taskNameLabel" destination="sNZ-UX-z8P" id="OSQ-T4-Qcz"/>
                                     <segue destination="jtk-fR-o1f" kind="show" identifier="toTaskDetailVC" id="tbH-HM-Dxi"/>
@@ -73,12 +87,20 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="My Tasks" id="2nj-0d-IrG">
+                        <barButtonItem key="leftBarButtonItem" title="Hide Completed" id="jAU-ft-Uj1">
+                            <connections>
+                                <action selector="hideCompletedButtonTapped:" destination="iYf-YI-lz7" id="V1d-iP-I2t"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="WvN-aw-Gw0">
                             <connections>
                                 <segue destination="jtk-fR-o1f" kind="show" id="k1G-oU-oDj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="hideCompletedButton" destination="jAU-ft-Uj1" id="yc1-h3-Kbr"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mJ7-cg-tqA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
