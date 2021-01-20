@@ -11,7 +11,10 @@ class TaskController {
     
     static var shared = TaskController()
     
-    var tasks: [Task] = []
+    var segments: [[Task]] { [incompleteTasks, completedTasks] }
+    
+    var completedTasks: [Task] = []
+    var incompleteTasks: [Task] = []
     
     private lazy var fetchRequest: NSFetchRequest<Task> = {
         let request = NSFetchRequest<Task>(entityName: "Task")
@@ -27,7 +30,9 @@ class TaskController {
     
     //  Read
     func fetchTasks() {
-        tasks = (try? CoreDataStack.context.fetch(fetchRequest)) ?? []
+        let tasks = (try? CoreDataStack.context.fetch(fetchRequest)) ?? []
+        incompleteTasks = tasks.filter { !$0.isComplete }
+        completedTasks = tasks.filter { $0.isComplete }
     }
     
     //  Update
@@ -40,14 +45,25 @@ class TaskController {
     
     //  Toggle isComplete
     func toggleIsCompleteFor(task: Task) {
+        if let index = incompleteTasks.firstIndex(of: task) {
+            incompleteTasks.remove(at: index)
+            completedTasks.append(task)
+        } else if let index = completedTasks.firstIndex(of: task) {
+            completedTasks.remove(at: index)
+            incompleteTasks.append(task)
+        }
+        
         task.isComplete.toggle()
         CoreDataStack.saveContext()
     }
     
     //  Delete
     func delete(task: Task) {
-        guard let index = tasks.firstIndex(of: task) else { return }
-        tasks.remove(at: index)
+        if let index = incompleteTasks.firstIndex(of: task) {
+            incompleteTasks.remove(at: index)
+        } else if let index = completedTasks.firstIndex(of: task) {
+            completedTasks.remove(at: index)
+        }
         CoreDataStack.context.delete(task)
         CoreDataStack.saveContext()
     }
